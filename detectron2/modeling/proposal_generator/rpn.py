@@ -448,7 +448,10 @@ class RPN(nn.Module):
             proposals: list[Instances]: contains fields "proposal_boxes", "objectness_logits"
             loss: dict[Tensor] or None
         """
-        features = [features[f] for f in self.in_features]
+
+        # Adding feature noise by multiplying backbone layer by 1.1 
+        features = [torch.mul(features[f], 1.1) for f in self.in_features]
+        print("Feature Noise Added")
         anchors = self.anchor_generator(features)
 
         pred_objectness_logits, pred_anchor_deltas = self.rpn_head(features)
