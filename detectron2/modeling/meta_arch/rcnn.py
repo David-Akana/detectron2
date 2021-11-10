@@ -70,6 +70,7 @@ class GeneralizedRCNN(nn.Module):
     @classmethod
     def from_config(cls, cfg):
         backbone = build_backbone(cfg)
+        print(backbone)
         return {
             "backbone": backbone,
             "proposal_generator": build_proposal_generator(cfg, backbone.output_shape()),
